@@ -312,7 +312,7 @@ The solution would be to calculate prices in whole numbers:
 (3 * (89.99 * 100)) / 100; // 269.97
 ```
 
-> Changes can be seein in:
+> Changes can be see in in:
 >
 > - [PlaceOrderScreen.jsx](https://github.com/bradtraversy/proshop-v2/tree/main/frontend/src/screens/PlaceOrderScreen.jsx)
 > - [cartUtils.js](https://github.com/bradtraversy/proshop-v2/tree/main/frontend/src/utils/cartUtils.js)
@@ -481,6 +481,63 @@ type, so you won't be able to use `.js` for your components. The entry point to
 your app will be in `main.jsx` instead of `index.js`
 
 And that's it! You should be good to go with the course using Vite.
+
+### FIX: issues with LinkContainer
+
+The `LinkContainer` component from [react-router-bootstrap](https://github.com/react-bootstrap/react-router-bootstrap) was used to wrap React Routers `Link` component for convenient integration between React Router and styling with Bootstrap.  
+However **react-router-bootstrap** hasn't kept up with React and you may see
+warnings in your console along the lines of:
+
+```
+ LinkContainer: Support for defaultProps will be removed from function components in a future major release. Use JavaScript default parameters instead.
+```
+
+Which is because React is removing default component props in favour of using
+default function parameters and `LinkContainer` still uses
+`Component.defaultProps`.  
+However you don't really need `LinkContainer` as we can simply use the `as` prop
+on any React Bootstrap component to render any element of your choice, including
+React Routers `Link` component.
+
+For example in our [Header.jsx](frontend/src/components/Header.jsx) we can first
+import `Link`:
+
+```jsx
+import { useNavigate, Link } from 'react-router-dom';
+```
+
+Then instead of using `LinkContainer`:
+
+```jsx
+<LinkContainer to='/'>
+  <Navbar.Brand>
+    <img src={logo} alt='ProShop' />
+    ProShop
+  </Navbar.Brand>
+</LinkContainer>
+```
+
+We can remove `LinkContainer` and use the **as** prop on the `Navbar.Brand`❌
+
+```jsx
+<Navbar.Brand as={Link} to='/'>
+  <img src={logo} alt='ProShop' />
+  ProShop
+</Navbar.Brand>
+```
+
+> **Changes can be seen in:**
+>
+> - [Header.jsx](frontend/src/components/Header.jsx)
+> - [CheckoutSteps.jsx](frontend/src/components/CheckoutSteps.jsx)
+> - [Paginate.jsx](frontend/src/components/Paginate.jsx)
+> - [ProfileScreen.jsx](frontend/src/screens/ProfileScreen.jsx)
+> - [OrderListScreen.jsx](frontend/src/screens/admin/OrderListScreen.jsx)
+> - [ProductListScreen.jsx](frontend/src/screens/admin/ProductListScreen.jsx)
+> - [UserListScreen.jsx](frontend/src/screens/admin/UserListScreen.jsx)
+
+After these changes you can then remove **react-router-bootstrap** from your
+dependencies in [frontend/package.json](frontend/package.json)
 
 ---
 
