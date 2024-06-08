@@ -518,7 +518,7 @@ Then instead of using `LinkContainer`:
 </LinkContainer>
 ```
 
-We can remove `LinkContainer` and use the **as** prop on the `Navbar.Brand`❌
+We can remove `LinkContainer` and use the **as** prop on the `Navbar.Brand`
 
 ```jsx
 <Navbar.Brand as={Link} to='/'>
