@@ -1,5 +1,4 @@
 import React from 'react';
-import { LinkContainer } from 'react-router-bootstrap';
 import { Table, Button } from 'react-bootstrap';
 import { FaTrash, FaEdit, FaCheck, FaTimes } from 'react-icons/fa';
 import Message from '../../components/Message';
@@ -9,6 +8,7 @@ import {
   useGetUsersQuery,
 } from '../../slices/usersApiSlice';
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
 const UserListScreen = () => {
   const { data: users, refetch, isLoading, error } = useGetUsersQuery();
@@ -64,14 +64,15 @@ const UserListScreen = () => {
                 <td>
                   {!user.isAdmin && (
                     <>
-                      <LinkContainer
+                      <Button
+                        as={Link}
                         to={`/admin/user/${user._id}/edit`}
                         style={{ marginRight: '10px' }}
+                        variant='light'
+                        className='btn-sm'
                       >
-                        <Button variant='light' className='btn-sm'>
-                          <FaEdit />
-                        </Button>
-                      </LinkContainer>
+                        <FaEdit />
+                      </Button>
                       <Button
                         variant='danger'
                         className='btn-sm'
