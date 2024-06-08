@@ -36,6 +36,7 @@ This is version 2.0 of the app, which uses Redux Toolkit. The first version can 
     - [Vite outputs the build to /dist](#vite-outputs-the-build-to-dist)
     - [Vite has a different script to run the dev server](#vite-has-a-different-script-to-run-the-dev-server)
     - [A final note:](#a-final-note)
+  - [FIX: issues with LinkContainer](#fix-issues-with-linkcontainer)
   * [License](#license)
 
 <!-- tocstop -->
